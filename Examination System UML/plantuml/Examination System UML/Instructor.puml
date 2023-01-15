@@ -1,0 +1,11 @@
+@startuml
+class Instructor {
+    + Id : int <<get>> <<set>>
+    + Name : string <<get>> <<set>>
+    GenerateExam(courseId:int) : void
+    AssignExam(examId:int) : void
+}
+class "List`1"<T> {
+}
+Instructor --> "Courses<Course>" "List`1"
+@enduml

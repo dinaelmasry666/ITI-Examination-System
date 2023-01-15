@@ -1,0 +1,10 @@
+@startuml
+class Exam {
+    + Id : int <<get>> <<set>>
+    + CourseId : int <<get>> <<set>>
+    + <<override>> ToString() : string
+}
+class "List`1"<T> {
+}
+Exam --> "questions<Question>" "List`1"
+@enduml

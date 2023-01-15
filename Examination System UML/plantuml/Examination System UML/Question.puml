@@ -1,0 +1,12 @@
+@startuml
+class Question {
+    + Id : int <<get>> <<set>>
+    + Statement : string <<get>> <<set>>
+    + Answer : int <<get>> <<set>>
+    + Type : int <<get>> <<set>>
+    + <<override>> ToString() : string
+}
+class "List`1"<T> {
+}
+Question --> "Choices<string>" "List`1"
+@enduml

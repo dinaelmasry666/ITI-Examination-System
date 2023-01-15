@@ -1,0 +1,16 @@
+@startuml
+!include .\\Examination System UML\Admin.puml
+!include .\\Examination System UML\Course.puml
+!include .\\Examination System UML\Department.puml
+!include .\\Examination System UML\Exam.puml
+!include .\\Examination System UML\Helpers.puml
+!include .\\Examination System UML\Instructor.puml
+!include .\\Examination System UML\Person.puml
+!include .\\Examination System UML\Program.puml
+!include .\\Examination System UML\Question.puml
+!include .\\Examination System UML\Student.puml
+!include .\\Examination System UML\Topic.puml
+!include .\\Examination System UML\obj\Debug\net7.0\.NETCoreApp,Version=v7.0.AssemblyAttributes.puml
+!include .\\Examination System UML\obj\Debug\net7.0\Examination System UML.AssemblyInfo.puml
+!include .\\Examination System UML\obj\Debug\net7.0\Examination System UML.GlobalUsings.g.puml
+@enduml

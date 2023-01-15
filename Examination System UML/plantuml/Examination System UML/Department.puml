@@ -1,0 +1,8 @@
+@startuml
+class Department {
+    + Id : int <<get>> <<set>>
+    + Name : string <<get>> <<set>>
+    + ManagerId : int <<get>> <<set>>
+    + <<override>> ToString() : string
+}
+@enduml
