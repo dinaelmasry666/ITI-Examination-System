@@ -1,0 +1,9 @@
+@startuml
+class StudentExam {
+    + Answers : string <<get>> <<set>>
+    + Grade : double <<get>> <<set>>
+    + Date : DateOnly <<get>> <<set>>
+    + Exams : Exam[0..m] <<get>> <<set>>
+}
+StudentExam --> Exam
+@enduml

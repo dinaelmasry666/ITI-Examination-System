@@ -12,7 +12,7 @@ namespace Examination_System_UML
 
         public int CourseId { get; set; }
 
-        public List<Question> questions { get; set; }
+        public List<Question> Questions { get; set; }
 
         public override string ToString()
         {

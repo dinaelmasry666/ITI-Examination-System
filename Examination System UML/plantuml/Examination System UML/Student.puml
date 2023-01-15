@@ -1,17 +1,18 @@
 @startuml
 class Student {
-    + Id : int <<get>> <<set>>
     + Phone : string <<get>> <<set>>
     + Address : string <<get>> <<set>>
+    + Department : Department <<get>> <<set>>
+    + Courses : Courses[1..m] <<get>> <<set>>
+    + Exams : Exams[0..m] <<get>> <<set>>
     + TakeExam(id:int) : int
     + GetGrades() : List<Tuple<string, double>>
     + GetGrade(id:int) : Tuple<string, double>
     + <<override>> ToString() : string
 }
-class "List`1"<T> {
-}
+
 Person <|-- Student
-Student --> "Department" Department
-Student --> "Courses<Course>" "List`1"
-Student --> "Exams<Tuple<Exam, DateOnly, string, double>>" "List`1"
+Student --> Department
+Student --> Course
+Student --> StudentExam
 @enduml

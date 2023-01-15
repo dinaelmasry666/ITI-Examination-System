@@ -2,10 +2,11 @@
 class Course {
     + CourseId : int <<get>> <<set>>
     + Name : string <<get>> <<set>>
+    + Exams : Exam[0..m] <<get>> <<set>>
+    + Topics : Topic[0..m] <<get>> <<set>>
     + <<override>> ToString() : string
 }
-class "List`1"<T> {
-}
-Course --> "Exams<Exam>" "List`1"
-Course --> "Topics<Topic>" "List`1"
+
+Course --> Exam
+Course --> Topic
 @enduml

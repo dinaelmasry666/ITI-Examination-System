@@ -4,9 +4,8 @@ class Question {
     + Statement : string <<get>> <<set>>
     + Answer : int <<get>> <<set>>
     + Type : int <<get>> <<set>>
+    + Choices : string[] <<get>> <<set>>
     + <<override>> ToString() : string
 }
-class "List`1"<T> {
-}
-Question --> "Choices<string>" "List`1"
+
 @enduml

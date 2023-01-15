@@ -6,12 +6,9 @@ using System.Threading.Tasks;
 
 namespace Examination_System_UML
 {
-    public class Instructor
+    public class Instructor : Person
     {
-        public int Id { get; set; }
-
-        public string Name { get; set; }
-
+        public Department Department { get; set; }
         public List<Course> Courses { get; set; }
 
         /// <summary>
@@ -19,7 +16,7 @@ namespace Examination_System_UML
         /// </summary>
         /// <param name="courseId"></param>
         /// <exception cref="NotImplementedException"></exception>
-        void GenerateExam(int courseId)
+        public void GenerateExam(int courseId)
         {
             throw new NotImplementedException();
         }
@@ -31,7 +28,12 @@ namespace Examination_System_UML
         /// </summary>
         /// <param name="examId"></param>
         /// <exception cref="NotImplementedException"></exception>
-        void AssignExam(int examId)
+        public void AssignExam(int examId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string ToString()
         {
             throw new NotImplementedException();
         }

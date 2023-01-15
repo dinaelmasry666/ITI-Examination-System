@@ -12,7 +12,7 @@ namespace Examination_System_UML
         
         public string Name { get; set; }
 
-        public int ManagerId { get; set; }
+        public Instructor Manager { get; set; }
 
         public override string ToString()
         {

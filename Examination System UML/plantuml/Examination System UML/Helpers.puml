@@ -1,5 +1,5 @@
 @startuml
 class Helpers <<static>> {
-    + {static} PrintListofLists(ls:IList<IList<T>>) : void
+    + {static} PrintList(ls:IList<T>) : void
 }
 @enduml
