@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Examination_System_UML;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,13 +15,23 @@ namespace Examination_System_UML
 
         public List<string> Choices { get; set; }
 
-        public int Answer { get; set; }
+        public char Answer { get; set; }
 
-        public int Type { get; set; }
+        public string Type { get; set; }
+
+        public int CourseId { get; set; }
 
         public override string ToString()
         {
-            throw new NotImplementedException();
+            string s = $"{Id}- {Statement}\n";
+            char c = 'a';
+
+            foreach (var item in Choices)
+            {
+                s += $"{c++}. {item}\n";
+            }
+
+            return s;
         }
     }
 }

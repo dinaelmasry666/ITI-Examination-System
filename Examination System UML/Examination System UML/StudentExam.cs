@@ -15,5 +15,10 @@ namespace Examination_System_UML
         public string Answers { get; set; }
         
         public double Grade { get; set; }
+
+        public override string ToString()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

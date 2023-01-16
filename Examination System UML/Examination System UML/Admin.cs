@@ -125,27 +125,83 @@ namespace Examination_System_UML
         #region Reports
         public void GenerateReportInstructorCourses(int instructorId)
         {
-            throw new NotImplementedException();
+            var instructor = Program.Instructors.Where((i) => i.Id == instructorId).SingleOrDefault();
+
+            if(instructor != null)
+                instructor.Courses.ForEach(delegate (Course course) { Console.WriteLine(course.ToString()); });
+
+            else
+                Console.WriteLine("ID doesn't exist");
         }
 
         public void GenerateReportCourseInstructors(int courseId)
         {
-            throw new NotImplementedException();
+            var course = Program.Courses.Where((i) => i.Id == courseId).SingleOrDefault();
+
+            if (course != null)
+            {
+                var result = Program.Instructors.Where((i) => i.Courses.Contains(course)).ToList();
+                
+                if(result != null)
+                    result.ForEach(delegate (Instructor instructor) { Console.WriteLine(instructor.ToString()); });
+                else
+                    Console.WriteLine("No instructors for this course");
+            }
+
+            else
+                Console.WriteLine("ID doesn't exist");
         }
 
         public void GenerateReportStudentCourses(int studentId)
         {
-            throw new NotImplementedException();
+            var student = Program.Students.Where((s)=>s.Id == studentId).SingleOrDefault();
+
+            if(student != null)
+                student.Courses.ForEach(delegate (Course course) { Console.WriteLine(course.ToString()); });
+            
+            else
+                Console.WriteLine("ID doesn't exist");
         }
 
-        public void GenerateReportCourseStudents(int instructorId)
+        public void GenerateReportCourseStudents(int courseId)
         {
-            throw new NotImplementedException();
+            var course = Program.Courses.Where((i) => i.Id == courseId).SingleOrDefault();
+
+            if(course != null)
+            {
+                var result = Program.Students.Where((i) => i.Courses.Contains(course)).ToList();
+
+                if (result != null)
+                    result.ForEach(delegate (Student student) { Console.WriteLine(student.ToString()); });
+                else
+                    Console.WriteLine("No students for this course");
+            }
+
+            else
+                Console.WriteLine("ID doesn't exist");
         }
 
         public void GenerateReportCourseTopics(int courseId)
         {
-            throw new NotImplementedException();
+            var course = Program.Courses.Where((c)=>c.Id == courseId).SingleOrDefault();
+
+            if(course != null) 
+                course.Topics.ForEach(delegate (Topic topic) { Console.WriteLine(topic.ToString()); });
+            else
+                Console.WriteLine("ID doesn't exist");
+        }
+
+        public void GenerateReportStudentExamsGrades(int studentId)
+        {
+            var student = Program.Students.Where((s) => s.Id == studentId).SingleOrDefault();
+
+            if (student != null)
+            {
+                student.Exams.ForEach(delegate (StudentExam studentExam) { Console.WriteLine(studentExam.ToString()); });
+            }
+
+            else
+                Console.WriteLine("ID doesn't exist");
         }
         #endregion
     }

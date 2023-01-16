@@ -1,8 +1,0 @@
-@startuml
-abstract class Person {
-    + Id : int <<get>> <<set>>
-    + FirstName : string <<get>> <<set>>
-    + LastName : string <<get>> <<set>>
-    + {abstract} <<override>> ToString() : string
-}
-@enduml

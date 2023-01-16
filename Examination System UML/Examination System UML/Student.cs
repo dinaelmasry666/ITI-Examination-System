@@ -18,7 +18,7 @@ namespace Examination_System_UML
 
         public List<StudentExam> Exams { get; set; }
 
-        public int TakeExam(int id)
+        public void TakeExam(int id)
         {
             throw new NotImplementedException();
         }

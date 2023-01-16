@@ -8,13 +8,15 @@ namespace Examination_System_UML
 {
     public class Course
     {
-        public int CourseId { get; set; }
+        public int Id { get; set; }
 
         public string Name { get; set; }
 
         public List<Exam> Exams { get; set; }
 
         public List<Topic> Topics { get; set; }
+
+        public List<Question> Questions { get; set; }
 
         public override string ToString()
         {

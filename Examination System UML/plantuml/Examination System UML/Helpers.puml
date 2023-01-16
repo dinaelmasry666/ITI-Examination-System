@@ -1,5 +1,0 @@
-@startuml
-class Helpers <<static>> {
-    + {static} PrintList(ls:IList<T>) : void
-}
-@enduml
