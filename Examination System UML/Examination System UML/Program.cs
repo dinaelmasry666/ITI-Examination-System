@@ -95,6 +95,8 @@ public class Program
 
     static public List<Question> Questions = Helpers.AddQuestions();
 
+    static public List<Exam> Exams = new List<Exam>();
+
     static public Person CurrentUser;
 
     static void Main(string[] args)
