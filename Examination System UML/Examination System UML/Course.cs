@@ -20,7 +20,7 @@ namespace Examination_System_UML
 
         public override string ToString()
         {
-            throw new NotImplementedException();
+            return $"Course ID: {Id}\nCourse name: {Name}";
         }
     }
 }

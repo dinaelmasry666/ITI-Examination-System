@@ -81,7 +81,18 @@ namespace Examination_System_UML
                 }
             }
 
+            Program.Courses.ForEach(delegate (Course course)
+            {
+                course.Questions.AddRange(questions.Where((q)=>q.CourseId == course.Id));
+            });
+
             return questions;
+        }
+
+        public static void Hold()
+        {
+            Console.WriteLine("Press y to return");
+            while (Console.ReadKey().Key != ConsoleKey.Y) ;
         }
 
         
