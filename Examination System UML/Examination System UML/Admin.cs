@@ -106,19 +106,43 @@ namespace Examination_System_UML
         #endregion
 
         #region Assign
-        public void AssignAdmin(int instructorId) 
+        public void AssignAdmin(int instructorId)
         {
-            throw new NotImplementedException(); 
+            Admin instructor = (Admin)Program.Instructors.Where((i) => i.Id == instructorId).SingleOrDefault();
+            if (instructor != null)
+            {
+                Program.Instructors.RemoveAt(instructorId);
+                Program.Instructors.Add(instructor);
+            }
+            else
+                Console.WriteLine("ID doesn't exist");
+
         }
 
         public void AssignInstrucor(int instructorId, int courseId)
         {
-            throw new NotImplementedException();
+            Instructor instructor = Program.Instructors.Where((i) => i.Id == instructorId).SingleOrDefault();
+            Course course = Program.Courses.Where((c) => c.Id == courseId).SingleOrDefault();
+
+            if (instructor != null && course != null)
+                instructor.Courses.Add(course);
+            else if (course != null)
+                Console.WriteLine("Instructor ID doesn't exist");
+            else
+                Console.WriteLine("Course ID doesn't exist");
         }
 
         public void AssignStudent(int studentId, int courseId)
         {
-            throw new NotImplementedException();
+            Student student = Program.Students.Where((s) => s.Id == studentId).SingleOrDefault();
+            Course course = Program.Courses.Where((c) => c.Id == courseId).SingleOrDefault();
+
+            if (student != null && course != null)
+                student.Courses.Add(course);
+            else if (course != null)
+                Console.WriteLine("Student ID doesn't exist");
+            else
+                Console.WriteLine("Course ID doesn't exist");
         }
         #endregion
 
