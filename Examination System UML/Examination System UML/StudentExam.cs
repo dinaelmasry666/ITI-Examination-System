@@ -18,7 +18,7 @@ namespace Examination_System_UML
 
         public override string ToString()
         {
-            throw new NotImplementedException();
+            return $"Exam ID: {Exam.Id}\nExam Date: {Date}\nGrade:{Grade}";
         }
     }
 }

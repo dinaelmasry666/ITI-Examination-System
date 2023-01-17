@@ -16,7 +16,7 @@ namespace Examination_System_UML
 
         public override string ToString()
         {
-            throw new NotImplementedException();
+            return $"Department ID: {Id}\nDepartment name: {Name}";
         }
     }
 }

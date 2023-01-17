@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Examination_System_UML
 {
+    // call Helpers.Hold(); at the end of every function to hold the state
     public class Instructor : Person
     {
         public Department Department { get; set; }
@@ -16,9 +17,22 @@ namespace Examination_System_UML
         /// </summary>
         /// <param name="courseId"></param>
         /// <exception cref="NotImplementedException"></exception>
-        public void GenerateExam(int courseId)
+        private void GenerateExam()
         {
-            throw new NotImplementedException();
+            int courseId = Convert.ToInt32(Console.ReadLine());
+            Course course = Program.Courses.Where((c) => c.Id == courseId).FirstOrDefault();
+            
+            if(course == null)
+            {
+                Console.WriteLine("No course with the given ID");
+                return;
+            }
+
+            Random rnd = new Random();
+
+            course.Questions.Where((q) => q.Type == "MCQ").OrderBy(x => rnd.Next()).Take(5);
+            course.Questions.Where((q) => q.Type == "TF").OrderBy(x => rnd.Next()).Take(5);
+
         }
 
         /// <summary>
@@ -28,14 +42,42 @@ namespace Examination_System_UML
         /// </summary>
         /// <param name="examId"></param>
         /// <exception cref="NotImplementedException"></exception>
-        public void AssignExam(int examId)
+        private void AssignExam()
         {
             throw new NotImplementedException();
         }
 
         public override string ToString()
         {
-            throw new NotImplementedException();
+            return $"Instructor ID: {Id}\nInstructor Name: {FirstName + " " + LastName}\nDepartment Name: {Department.Name}";
+        }
+
+
+        public override void PresentMenu()
+        {
+            string welcome = "******************************************************************************\n" +
+                            $"****Welcome {FirstName + " " + LastName} to ITI Examination System\n" +
+                             "******************************************************************************\n\n";
+
+            Console.WriteLine(welcome + "\nPlease choose an option:");
+            Console.WriteLine(
+                "1- Generate an exam\n" +
+                "2- Assign exam\n" +
+                "3- ESC to logout");
+
+
+            while (true)
+            {
+                var choice = Console.ReadKey();
+                switch (choice.Key)
+                {
+                    case ConsoleKey.D1:
+                    case ConsoleKey.NumPad1: { Console.Clear(); GenerateExam(); break; }
+                    case ConsoleKey.D2:
+                    case ConsoleKey.NumPad2: { Console.Clear(); AssignExam(); break; }
+                    case ConsoleKey.Escape: { Program.CurrentUser = null; Program.Type = ""; return; }
+                }
+            }
         }
     }
 }

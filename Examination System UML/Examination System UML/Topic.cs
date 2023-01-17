@@ -14,7 +14,7 @@ namespace Examination_System_UML
 
         public override string ToString()
         {
-            throw new NotImplementedException();
+            return $"Topic ID: {Id}\nTopic name: {Name}";
         }
     }
 }
