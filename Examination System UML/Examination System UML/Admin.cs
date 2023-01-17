@@ -11,96 +11,164 @@ namespace Examination_System_UML
         #region CUD operations
         public void AddStudent(Student student)
         {
-            throw new NotImplementedException();
+            if (!Program.Students.Contains(student))
+            {
+                Program.Students.Add(student);
+            }
+            else
+            {
+                Console.WriteLine("This student is already exists");
+            }
         }
 
         public void AddDepartment(Department department)
         {
-            throw new NotImplementedException();
+            if (!Program.Departments.Contains(department))
+            {
+                Program.Departments.Add(department);
+            }
+            else
+            {
+                Console.WriteLine("This Department is already exists");
+            }
         }
 
         public void AddQuestion(Question question)
         {
-            throw new NotImplementedException();
+            if (!Program.Questions.Contains(question))
+            {
+                Program.Questions.Add(question);
+            }
+            else
+            {
+                Console.WriteLine("This question is already exists");
+            }
         }
 
         public void AddInstructor(Instructor instructor)
         {
-            throw new NotImplementedException();
+            if (!Program.Instructors.Contains(instructor))
+            {
+                Program.Instructors.Add(instructor);
+            }
+            else
+            {
+                Console.WriteLine("This instructor is already exists");
+            }
         }
 
         public void AddCourse(Course course)
         {
-            throw new NotImplementedException();
+            if (!Program.Courses.Contains(course))
+            {
+                Program.Courses.Add(course);
+            }
+            else
+            {
+                Console.WriteLine("This course is already exists");
+            }
         }
 
         public void AddTopic(Topic topic)
         {
-            throw new NotImplementedException();
+            if (!Program.Topics.Contains(topic))
+            {
+                Program.Topics.Add(topic);
+            }
+            else
+            {
+                Console.WriteLine("This topic is already exists");
+            }
         }
 
 
         public void UpdateStudent(int id, Student student)
         {
-            throw new NotImplementedException();
+            Student st = Program.Students.Where((s) => s.Id == id).SingleOrDefault();
+            st.Phone = student.Phone;
+            st.Courses = student.Courses;
+            st.Address = student.Address;
+            st.Department = student.Department;
+            st.FirstName = student.FirstName;
+            st.LastName = student.LastName;
+            st.Exams = student.Exams;
+            //st.userName = student.userName;
+            //st.password = student.password;
         }
 
         public void UpdateDepartment(int id, Department department)
         {
-            throw new NotImplementedException();
+            Department dt = Program.Departments.Where((d) => d.Id == id).SingleOrDefault();
+            dt.Manager = department.Manager;
+            dt.Name = department.Name;
+
         }
 
         public void UpdateQuestion(int id, Question question)
         {
-            throw new NotImplementedException();
+            Question qs = Program.Questions.Where((q) => q.Id == id).SingleOrDefault();
+            qs.Statement = question.Statement;
+            qs.Answer = question.Answer;
+            qs.Choices = question.Choices;
+            qs.Type = question.Type;
         }
 
         public void UpdateInstructor(int id, Instructor instructor)
         {
-            throw new NotImplementedException();
+            Instructor ins = Program.Instructors.Where((i) => i.Id == id).SingleOrDefault();
+            ins.Courses = instructor.Courses;
+            ins.Department = instructor.Department;
+            ins.LastName = instructor.LastName;
+            ins.FirstName = instructor.FirstName;
+            //ins.userName = instructor.userName;
+            //ins.password = instructor.password;
         }
 
         public void UpdateCourse(int id, Course course)
         {
-            throw new NotImplementedException();
+            Course crs = Program.Courses.Where((c) => c.Id == id).SingleOrDefault();
+            crs.Topics = course.Topics;
+            crs.Name = course.Name;
+            crs.Exams = course.Exams;
         }
 
         public void UpdateTopic(int id, Topic topic)
         {
-            throw new NotImplementedException();
+            Topic tp = Program.Topics.Where((t) => t.Id == id).SingleOrDefault();
+            tp.Name = topic.Name;
         }
 
 
         public void DeleteStudent(int id)
         {
-            throw new NotImplementedException();
+            Program.Students.RemoveAt(id);
         }
 
         public void DeleteDepartment(int id)
         {
-            throw new NotImplementedException();
+            Program.Departments.RemoveAt(id);
         }
 
         public void DeleteQuestion(int id)
         {
-            throw new NotImplementedException();
+            Program.Questions.RemoveAt(id);
         }
 
         public void DeleteInstructor(int id)
         {
-            throw new NotImplementedException();
+            Program.Instructors.RemoveAt(id);
         }
 
 
         public void DeleteCourse(int id)
         {
-            throw new NotImplementedException();
+            Program.Courses.RemoveAt(id);
         }
 
 
         public void DeleteTopic(int id)
         {
-            throw new NotImplementedException();
+            Program.Topics.RemoveAt(id);
         }
 
         #endregion
@@ -145,7 +213,7 @@ namespace Examination_System_UML
                 if(result != null)
                     result.ForEach(delegate (Instructor instructor) { Console.WriteLine(instructor.ToString()); });
                 else
-                    Console.WriteLine("No instructors for this course");
+                    Console.WriteLine("No Program.Instructors for this course");
             }
 
             else
@@ -174,7 +242,7 @@ namespace Examination_System_UML
                 if (result != null)
                     result.ForEach(delegate (Student student) { Console.WriteLine(student.ToString()); });
                 else
-                    Console.WriteLine("No students for this course");
+                    Console.WriteLine("No Program.Students for this course");
             }
 
             else
