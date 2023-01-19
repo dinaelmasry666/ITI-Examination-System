@@ -133,7 +133,7 @@ namespace Examination_System_UML
 
         private void UpdateInstructor()
         {
-            Instructor instructor  = new Instructor();
+            Instructor instructor = new Instructor();
             Instructor ins = Program.Instructors.Where((i) => i.Id == instructor.Id).SingleOrDefault();
             ins.Courses = instructor.Courses;
             ins.Department = instructor.Department;
@@ -162,8 +162,8 @@ namespace Examination_System_UML
 
         private void DeleteStudent()
         {
-            var s = Program.Students.Where((s)=>s.Id == 1).FirstOrDefault();
-            if(s != null) Program.Students.Remove(s);
+            var s = Program.Students.Where((s) => s.Id == 1).FirstOrDefault();
+            if (s != null) Program.Students.Remove(s);
 
         }
 
@@ -197,9 +197,13 @@ namespace Examination_System_UML
         #endregion
 
         #region Assign
-        private void AssignAdmin() 
+        public void AssignAdmin()
         {
-            int instructorId = 0;
+            int instructorId;
+            do
+            {
+                Console.WriteLine("Enter Instructor Id");
+            } while (!int.TryParse(Console.ReadLine(), out instructorId));
 
             Admin instructor = (Admin)Program.Instructors.Where((i) => i.Id == instructorId).SingleOrDefault();
             if (instructor != null)
@@ -209,11 +213,22 @@ namespace Examination_System_UML
             }
             else
                 Console.WriteLine("ID doesn't exist");
+
         }
 
-        private void AssignInstrucor()
+        public void AssignInstrucor()
         {
-            int instructorId = 0, courseId = 0;
+            int instructorId;
+            do
+            {
+                Console.WriteLine("Enter Instructor Id");
+            } while (!int.TryParse(Console.ReadLine(), out instructorId));
+
+            int courseId;
+            do
+            {
+                Console.WriteLine("Enter Course Id");
+            } while (!int.TryParse(Console.ReadLine(), out courseId));
 
             Instructor instructor = Program.Instructors.Where((i) => i.Id == instructorId).SingleOrDefault();
             Course course = Program.Courses.Where((c) => c.Id == courseId).SingleOrDefault();
@@ -226,9 +241,20 @@ namespace Examination_System_UML
                 Console.WriteLine("Course ID doesn't exist");
         }
 
-        private void AssignStudent()
+        public void AssignStudent()
         {
-            int studentId = 0, courseId = 0;
+            int studentId;
+            do
+            {
+                Console.WriteLine("Enter Student Id");
+            } while (!int.TryParse(Console.ReadLine(), out studentId));
+
+            int courseId;
+            do
+            {
+                Console.WriteLine("Enter Course Id");
+            } while (!int.TryParse(Console.ReadLine(), out courseId));
+
             Student student = Program.Students.Where((s) => s.Id == studentId).SingleOrDefault();
             Course course = Program.Courses.Where((c) => c.Id == courseId).SingleOrDefault();
 
@@ -249,7 +275,7 @@ namespace Examination_System_UML
 
             var instructor = Program.Instructors.Where((i) => i.Id == instructorId).SingleOrDefault();
 
-            if(instructor != null)
+            if (instructor != null)
                 instructor.Courses.ForEach(delegate (Course course) { Console.WriteLine(course.ToString()); });
 
             else
@@ -268,8 +294,8 @@ namespace Examination_System_UML
             if (course != null)
             {
                 var result = Program.Instructors.Where((i) => i.Courses.Contains(course)).ToList();
-                
-                if(result != null)
+
+                if (result != null)
                     result.ForEach(delegate (Instructor instructor) { Console.WriteLine(instructor.ToString()); Console.WriteLine("************************"); });
                 else
                     Console.WriteLine("No Program.Instructors for this course");
@@ -287,11 +313,11 @@ namespace Examination_System_UML
             Console.Write("Enter student ID: ");
             int studentId = Convert.ToInt32(Console.ReadLine());
 
-            var student = Program.Students.Where((s)=>s.Id == studentId).SingleOrDefault();
+            var student = Program.Students.Where((s) => s.Id == studentId).SingleOrDefault();
 
-            if(student != null)
+            if (student != null)
                 student.Courses.ForEach(delegate (Course course) { Console.WriteLine(course.ToString()); });
-            
+
             else
                 Console.WriteLine("ID doesn't exist");
 
@@ -306,7 +332,7 @@ namespace Examination_System_UML
 
             var course = Program.Courses.Where((i) => i.Id == courseId).SingleOrDefault();
 
-            if(course != null)
+            if (course != null)
             {
                 var result = Program.Students.Where((i) => i.Courses.Contains(course)).ToList();
 
@@ -328,9 +354,9 @@ namespace Examination_System_UML
             Console.Write("Enter course ID: ");
             int courseId = Convert.ToInt32(Console.ReadLine());
 
-            var course = Program.Courses.Where((c)=>c.Id == courseId).SingleOrDefault();
+            var course = Program.Courses.Where((c) => c.Id == courseId).SingleOrDefault();
 
-            if(course != null) 
+            if (course != null)
                 course.Topics.ForEach(delegate (Topic topic) { Console.WriteLine(topic.ToString()); });
             else
                 Console.WriteLine("ID doesn't exist");
