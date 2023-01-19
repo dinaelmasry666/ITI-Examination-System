@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Examination_System_UML
 {
@@ -21,23 +23,110 @@ namespace Examination_System_UML
 
         private void TakeExam()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("choose the targeted exam ID...");
+
+            for(int i = 0;i < Exams.Count; i++)
+               {
+                Console.WriteLine(Exams[i]); 
+               }
+            int examId=int.Parse(Console.ReadLine());
+
+           
+            StudentExam ex = Exams.Where((e) => e.Exam.Id == examId).FirstOrDefault();
+            if(ex == null)
+            {
+                Console.WriteLine("No Exam with the given ID");
+                return;
+            }
+            Console.WriteLine(ex);
+
+            for (int i = 0; i < ex.Exam.Questions.Count; i++)
+            { 
+              ex.Answers += $"{Console.ReadLine()}";
+              ex.Answers += ",";
+            }
+
+            CorrectExam(ex);
+
+            Helpers.Hold();
         }
 
-        private List<Tuple<string, double>> GetGrades()
+
+
+        private List  < Tuple <int  , double> > GetGrades()
         {
-            throw new NotImplementedException();
+            //Tuple<CourseName, Grade> MyCustomTuple = new Tuple<CourseName, Grade>();
+
+            var tupleList = new List<Tuple<int, double>>();
+
+            for (int i = 0; i<Exams.Count; i++)
+			{  
+                tupleList.Add( new Tuple<int, double>(Exams[i].Exam.CourseId, Exams[i].Grade));
+            }
+            Helpers.Hold();
+            return tupleList;
         }
 
-        private Tuple<string, double> GetGrade()
+        private Tuple<int, double> GetGrade()
         {
-            throw new NotImplementedException();
+            Tuple <int, double> T;
+            int courseId = int.Parse(Console.ReadLine());
+            Course crs = Program.Courses.Where((c) => c.Id == courseId).FirstOrDefault();
+
+            if (crs == null)
+            {
+                Console.WriteLine("No course with the given ID");
+                return new Tuple<int, double>(-1,-1);
+            }
+
+            for (int i = 0; i < Exams.Count; i++)
+            { 
+                if(Exams[i].Exam.CourseId== courseId)
+                {
+                T = new Tuple<int, double>(Exams[i].Exam.CourseId, Exams[i].Grade);
+                return T;
+                }
+
+            }
+           
+
+            Helpers.Hold();
+            return new Tuple<int, double>(-1, -1);
         }
+
+
+        private void CorrectExam(StudentExam studentEx)
+        {
+            int numberOfCorrecrAnswers = 0;
+            int generalExamId= studentEx.Exam.Id;
+            Exam generalExam = Program.Exams.Where((c) => c.Id == generalExamId).FirstOrDefault();
+           
+            // converting student answers from string to char array
+            string[] studentAnswers = studentEx.Answers.Split(',');
+
+
+          
+            //checking the student answer with model answer
+            for(int i = 0;i < generalExam.Questions.Count; i++)
+            {
+                
+                if (generalExam.Questions[i].Answer == studentAnswers[i][0])
+                {
+                    numberOfCorrecrAnswers += 1;
+                }
+            }
+            studentEx.Grade = numberOfCorrecrAnswers / generalExam.Questions.Count;
+
+            Helpers.Hold();
+        }
+
 
         public override string ToString()
         {
             return $"Student ID: {Id}\nStudent Name: {FirstName + " " + LastName}\nDepartment Name: {Department.Name}";
         }
+
+
 
         public override void PresentMenu()
         {
