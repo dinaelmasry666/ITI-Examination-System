@@ -208,7 +208,7 @@ namespace Examination_System_UML
             Admin instructor = (Admin)Program.Instructors.Where((i) => i.Id == instructorId).SingleOrDefault();
             if (instructor != null)
             {
-                Program.Instructors.RemoveAt(instructorId);
+                Program.Instructors.Remove(Program.Instructors.Where((i) => i.Id == instructorId).Single());
                 Program.Instructors.Add(instructor);
             }
             else
