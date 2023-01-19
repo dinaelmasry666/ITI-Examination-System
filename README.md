@@ -1,8 +1,8 @@
 # ITI-Examination-System
 
-## The system is represented in a console application.
+### The system is represented in a console application.
 
-## The system has an Admin , Instructors, Students, Courses and Topics.
+### The system has an Admin , Instructors, Students, Courses and Topics.
 
 
 ## Admin's role is to :
@@ -32,4 +32,5 @@
 
 ## Use Case Diagram:
 
-![useCaseDiagram](https://user-images.githubusercontent.com/76956637/213491847-b2bf3d72-e49f-41c1-b066-475f4d4a8c47.png)
+![useCaseDiagram](https://user-images.githubusercontent.com/76956637/213494849-b2a12087-7f73-47cf-b65f-8cbe92cbd59f.png)
+
