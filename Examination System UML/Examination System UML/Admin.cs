@@ -106,18 +106,14 @@ namespace Examination_System_UML
         #endregion
 
         #region Assign
-        public void AssignAdmin(int instructorId)
-        {
-<<<<<<< Updated upstream
-=======
-            
+        public void AssignAdmin()
+        {   
             int instructorId;
             do
             {
                 Console.WriteLine("Enter Instructor Id");
             } while (!int.TryParse(Console.ReadLine(), out instructorId));
 
->>>>>>> Stashed changes
             Admin instructor = (Admin)Program.Instructors.Where((i) => i.Id == instructorId).SingleOrDefault();
             if (instructor != null)
             {
@@ -125,18 +121,12 @@ namespace Examination_System_UML
                 Program.Instructors.Add(instructor);
             }
             else
-<<<<<<< Updated upstream
                 Console.WriteLine("ID doesn't exist");
 
-=======
-                Console.WriteLine("ID doesn't exist"); 
->>>>>>> Stashed changes
         }
 
-        public void AssignInstrucor(int instructorId, int courseId)
+        public void AssignInstrucor()
         {
-<<<<<<< Updated upstream
-=======
             int instructorId;
             do
             {
@@ -149,7 +139,6 @@ namespace Examination_System_UML
                 Console.WriteLine("Enter Course Id");
             } while (!int.TryParse(Console.ReadLine(), out courseId));
 
->>>>>>> Stashed changes
             Instructor instructor = Program.Instructors.Where((i) => i.Id == instructorId).SingleOrDefault();
             Course course = Program.Courses.Where((c) => c.Id == courseId).SingleOrDefault();
 
@@ -161,10 +150,8 @@ namespace Examination_System_UML
                 Console.WriteLine("Course ID doesn't exist");
         }
 
-        public void AssignStudent(int studentId, int courseId)
+        public void AssignStudent()
         {
-<<<<<<< Updated upstream
-=======
             int studentId;
             do
             {
@@ -177,7 +164,6 @@ namespace Examination_System_UML
                 Console.WriteLine("Enter Course Id");
             } while (!int.TryParse(Console.ReadLine(), out courseId));
 
->>>>>>> Stashed changes
             Student student = Program.Students.Where((s) => s.Id == studentId).SingleOrDefault();
             Course course = Program.Courses.Where((c) => c.Id == courseId).SingleOrDefault();
 
