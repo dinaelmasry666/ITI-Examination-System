@@ -61,7 +61,7 @@ public class Program
 
     static public List<Student> Students = new List<Student> {
 
-        new Student{Id=1    ,FirstName = "Hagar"     ,LastName = "Mostafa"     ,Department = Departments[1]           ,Username = "Hagar_Mostafa1"         ,Password = "Mostafa_Hagar1"        , c = new List<Course>()},
+        new Student{Id=1    ,FirstName = "Hagar"     ,LastName = "Mostafa"     ,Department = Departments[1]           ,Username = "Hagar_Mostafa1"         ,Password = "Mostafa_Hagar1"        , Courses = new List<Course>()},
         new Student{Id=2    ,FirstName = "Sara"      ,LastName = "Mohamed"     ,Department = Departments[2]           ,Username = "Sara_Mohamed2"          ,Password = "Mohamed_Sara2"         , Courses = new List<Course>()},
         new Student{Id=3    ,FirstName = "Eman"      ,LastName = "Mohammed"    ,Department = Departments[3]           ,Username = "Eman_Mohammed3"         ,Password = "Mohammed_Eman3"        , Courses = new List<Course>()},
         new Student{Id=4    ,FirstName = "Bassant"   ,LastName = "Mahgoub"     ,Department = Departments[4]           ,Username = "Bassant_Mahgoub4"       ,Password = "Mahgoub_Bassant4"      , Courses = new List<Course>()},

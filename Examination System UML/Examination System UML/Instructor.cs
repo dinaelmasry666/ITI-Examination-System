@@ -23,21 +23,23 @@ namespace Examination_System_UML
         /// <exception cref="NotImplementedException"></exception>
         private void GenerateExam()
         {
+            Console.WriteLine("Enter course ID:");
             int courseId = Convert.ToInt32(Console.ReadLine());
             Course course = Program.Courses.Where((c) => c.Id == courseId).FirstOrDefault();
             
             if(course == null)
             {
                 Console.WriteLine("No course with the given ID");
+                Helpers.Hold();
                 return;
             }
 
             Random rnd = new Random();
 
-            course.Questions.Where((q) => q.Type == "MCQ").OrderBy(x => rnd.Next()).Take(5);
-            course.Questions.Where((q) => q.Type == "TF").OrderBy(x => rnd.Next()).Take(5);
+            var mcq = course.Questions.Where((q) => q.Type == "MCQ").OrderBy(x => rnd.Next()).Take(5).ToList();
+            var tf = course.Questions.Where((q) => q.Type == "TF").OrderBy(x => rnd.Next()).Take(5).ToList();
 
-            Program.Exams.Add(new Exam { Id = Examcount++, CourseId = courseId, Questions = course.Questions });
+            Program.Exams.Add(new Exam { Id = Examcount++, CourseId = courseId, Questions = mcq.Concat(tf).ToList() }); ;
 
             Helpers.Hold();
         }
@@ -51,35 +53,41 @@ namespace Examination_System_UML
         /// <exception cref="NotImplementedException"></exception>
         private void AssignExamForSingleStudent()
         {
+            Console.WriteLine("Enter student ID:");
             int stuid = Convert.ToInt32(Console.ReadLine());
-            Student stu = Program.Students.Where((c) => c.Id == stuid).FirstOrDefault();
+            Student stu = Program.Students.Where((s) => s.Id == stuid).FirstOrDefault();
 
             if (stu == null)
             {
                 Console.WriteLine("No student with the given ID");
+                Helpers.Hold();
                 return;
             }
 
             //choose one Exam randomly for student
             Random rnd = new Random();
-            Exam ex = Program.Exams.FirstOrDefault();
+            Exam ex = Program.Exams.OrderBy(x => rnd.Next()).FirstOrDefault();
 
             if (ex != null)
             {
                 stu.Exams.Add(new StudentExam { Exam = ex  }) ;
+                Console.WriteLine($"Exam {ex.Id} was assigned to the student.");
+                Helpers.Hold();
             }
             else
             {
             
-                Console.WriteLine("no Exams generated...");
-                return;
+                Console.WriteLine("No Exams generated...");
+                Helpers.Hold();
             }
-            Helpers.Hold();
+
+            return; 
         }
 
         //depending on course ID
         private void AssignExamForGroupStudent()
         {
+            Console.WriteLine("Enter course ID");
             int courseId = Convert.ToInt32(Console.ReadLine());
             Course crs = Program.Courses.Where((c) => c.Id == courseId).FirstOrDefault();
 
@@ -87,22 +95,23 @@ namespace Examination_System_UML
             if (crs == null)
             {
                 Console.WriteLine("No course with the given ID");
+                Helpers.Hold();
                 return;
             }
 
-            var studentGroup = Program.Students.Where
-                (
-                (c) =>  c.Courses.Any((r)=> r.Id == courseId )
+            var studentGroup = Program.Students.Where(
+                    (s) =>  s.Courses.Any((c)=> c.Id == courseId )
                 ).ToList();
 
             if (studentGroup == null)
             {
                 Console.WriteLine("No students where choosen...");
+                Helpers.Hold();
                 return;
             }
 
             Random rnd = new Random();
-            Exam ex = Program.Exams.FirstOrDefault();
+            Exam ex = Program.Exams.OrderBy(x => rnd.Next()).FirstOrDefault();
 
             if (ex != null)
             {
@@ -110,16 +119,15 @@ namespace Examination_System_UML
                 {
                     studentGroup[i].Exams.Add(new StudentExam { Exam = ex });
                 }
-                
+                Console.WriteLine($"Exam with id {ex.Id} was assigned");
             }
             else
             {
-
                 Console.WriteLine("no Exams generated...");
-                return;
             }
 
             Helpers.Hold();
+            return;
         }
 
         public override string ToString()
@@ -149,7 +157,9 @@ namespace Examination_System_UML
                     case ConsoleKey.D1:
                     case ConsoleKey.NumPad1: { Console.Clear(); GenerateExam(); break; }
                     case ConsoleKey.D2:
-                    case ConsoleKey.NumPad2: { Console.Clear(); AssignExam(); break; }
+                    case ConsoleKey.NumPad2: { Console.Clear(); AssignExamForSingleStudent(); break; }
+                    case ConsoleKey.D3:
+                    case ConsoleKey.NumPad3: { Console.Clear(); AssignExamForGroupStudent(); break; }
                     case ConsoleKey.Escape: { Program.CurrentUser = null; Program.Type = ""; return; }
                 }
             }

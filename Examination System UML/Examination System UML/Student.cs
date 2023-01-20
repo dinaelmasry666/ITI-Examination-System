@@ -38,12 +38,13 @@ namespace Examination_System_UML
                 Console.WriteLine("No Exam with the given ID");
                 return;
             }
-            Console.WriteLine(ex);
+            Console.WriteLine(ex.Exam);
 
             for (int i = 0; i < ex.Exam.Questions.Count; i++)
             { 
               ex.Answers += $"{Console.ReadLine()}";
-              ex.Answers += ",";
+              if (i != ex.Exam.Questions.Count- 1)
+                ex.Answers += ",";
             }
 
             CorrectExam(ex);
@@ -51,55 +52,46 @@ namespace Examination_System_UML
             Helpers.Hold();
         }
 
-
-
-        private List  < Tuple <int  , double> > GetGrades()
+        private void GetGrades()
         {
-            //Tuple<CourseName, Grade> MyCustomTuple = new Tuple<CourseName, Grade>();
-
-            var tupleList = new List<Tuple<int, double>>();
-
             for (int i = 0; i<Exams.Count; i++)
 			{  
-                tupleList.Add( new Tuple<int, double>(Exams[i].Exam.CourseId, Exams[i].Grade));
+                Console.WriteLine( $"{Exams[i].Exam.CourseId}\t{Exams[i].Grade}%");
             }
             Helpers.Hold();
-            return tupleList;
         }
 
-        private Tuple<int, double> GetGrade()
+        private void GetGrade()
         {
-            Tuple <int, double> T;
+            Console.WriteLine("Enter course ID:");
             int courseId = int.Parse(Console.ReadLine());
             Course crs = Program.Courses.Where((c) => c.Id == courseId).FirstOrDefault();
 
             if (crs == null)
             {
                 Console.WriteLine("No course with the given ID");
-                return new Tuple<int, double>(-1,-1);
+                return;
             }
 
             for (int i = 0; i < Exams.Count; i++)
             { 
                 if(Exams[i].Exam.CourseId== courseId)
                 {
-                T = new Tuple<int, double>(Exams[i].Exam.CourseId, Exams[i].Grade);
-                return T;
+                    Console.WriteLine($"{Exams[i].Exam.CourseId}\t{Exams[i].Grade}");
+                    Helpers.Hold();
+                    return;
                 }
-
             }
-           
 
+            Console.WriteLine("No exams for this course");
             Helpers.Hold();
-            return new Tuple<int, double>(-1, -1);
         }
 
 
         private void CorrectExam(StudentExam studentEx)
         {
-            int numberOfCorrecrAnswers = 0;
-            int generalExamId= studentEx.Exam.Id;
-            Exam generalExam = Program.Exams.Where((c) => c.Id == generalExamId).FirstOrDefault();
+            int numberOfCorrectAnswers = 0;
+            Exam generalExam = studentEx.Exam;
            
             // converting student answers from string to char array
             string[] studentAnswers = studentEx.Answers.Split(',');
@@ -109,13 +101,12 @@ namespace Examination_System_UML
             //checking the student answer with model answer
             for(int i = 0;i < generalExam.Questions.Count; i++)
             {
-                
                 if (generalExam.Questions[i].Answer == studentAnswers[i][0])
                 {
-                    numberOfCorrecrAnswers += 1;
+                    numberOfCorrectAnswers += 1;
                 }
             }
-            studentEx.Grade = numberOfCorrecrAnswers / generalExam.Questions.Count;
+            studentEx.Grade = ((double)numberOfCorrectAnswers / generalExam.Questions.Count) * 100;
 
             Helpers.Hold();
         }
