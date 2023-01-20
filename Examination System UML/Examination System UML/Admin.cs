@@ -16,7 +16,7 @@ namespace Examination_System_UML
             Student student = new Student();
 
             Console.WriteLine("Enter student id :");
-            //student.Id = int.Parse(Console.ReadLine());
+
             int id;
             if (int.TryParse(Console.ReadLine(), out id))
             {
@@ -80,31 +80,42 @@ namespace Examination_System_UML
             int crsID;
             Course crs;
             Console.WriteLine("Enter courses number :");
-            int crsCount = int.Parse(Console.ReadLine());
-            do
+            int crsCount;
+
+            if (!int.TryParse(Console.ReadLine(), out crsCount)) { 
+                Console.WriteLine("The courses number should be a number");
+                Helpers.Hold();
+                return;
+            }
+
+            if (crsCount > 0)
             {
-                Console.WriteLine("Enter student Course id :");
-                //crsID = int.Parse(Console.ReadLine());
-                if (int.TryParse(Console.ReadLine(), out crsID))
+                do
                 {
-                    crs = Program.Courses.FirstOrDefault(c => c.Id == crsID);
-                }
-                else
-                {
-                    Console.WriteLine("This course id should be a number");
-                    Helpers.Hold();
-                    return;
-                }
-                //crs = Program.Courses.FirstOrDefault(c => c.Id == crsID);
-                if (crs != null)
-                {
-                    Courses.Add(crs);
-                }
-                else
-                {
-                    Console.WriteLine("Invalid Course ID");
-                }
-            } while (Courses.Count < crsCount);
+                    Console.WriteLine("Enter student Course id :");
+                    //crsID = int.Parse(Console.ReadLine());
+                    if (int.TryParse(Console.ReadLine(), out crsID))
+                    {
+                        crs = Program.Courses.FirstOrDefault(c => c.Id == crsID);
+                    }
+                    else
+                    {
+                        Console.WriteLine("This course id should be a number");
+                        Helpers.Hold();
+                        return;
+                    }
+                    //crs = Program.Courses.FirstOrDefault(c => c.Id == crsID);
+                    if (crs != null)
+                    {
+                        Courses.Add(crs);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid Course ID");
+                    }
+                } while (Courses.Count < crsCount);
+            }
+            
             student.Courses = Courses;
 
             Program.Students.Add(student);
