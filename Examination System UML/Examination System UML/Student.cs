@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Examination_System_UML
 {
@@ -21,23 +23,101 @@ namespace Examination_System_UML
 
         private void TakeExam()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("choose the targeted exam ID...");
+
+            for(int i = 0;i < Exams.Count; i++)
+               {
+                Console.WriteLine(Exams[i]); 
+               }
+            int examId=int.Parse(Console.ReadLine());
+
+           
+            StudentExam ex = Exams.Where((e) => e.Exam.Id == examId).FirstOrDefault();
+            if(ex == null)
+            {
+                Console.WriteLine("No Exam with the given ID");
+                return;
+            }
+            Console.WriteLine(ex.Exam);
+
+            for (int i = 0; i < ex.Exam.Questions.Count; i++)
+            { 
+              ex.Answers += $"{Console.ReadLine()}";
+              if (i != ex.Exam.Questions.Count- 1)
+                ex.Answers += ",";
+            }
+
+            CorrectExam(ex);
+
+            Helpers.Hold();
         }
 
-        private List<Tuple<string, double>> GetGrades()
+        private void GetGrades()
         {
-            throw new NotImplementedException();
+            for (int i = 0; i<Exams.Count; i++)
+			{  
+                Console.WriteLine( $"{Exams[i].Exam.CourseId}\t{Exams[i].Grade}%");
+            }
+            Helpers.Hold();
         }
 
-        private Tuple<string, double> GetGrade()
+        private void GetGrade()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Enter course ID:");
+            int courseId = int.Parse(Console.ReadLine());
+            Course crs = Program.Courses.Where((c) => c.Id == courseId).FirstOrDefault();
+
+            if (crs == null)
+            {
+                Console.WriteLine("No course with the given ID");
+                return;
+            }
+
+            for (int i = 0; i < Exams.Count; i++)
+            { 
+                if(Exams[i].Exam.CourseId== courseId)
+                {
+                    Console.WriteLine($"{Exams[i].Exam.CourseId}\t{Exams[i].Grade}");
+                    Helpers.Hold();
+                    return;
+                }
+            }
+
+            Console.WriteLine("No exams for this course");
+            Helpers.Hold();
         }
+
+
+        private void CorrectExam(StudentExam studentEx)
+        {
+            int numberOfCorrectAnswers = 0;
+            Exam generalExam = studentEx.Exam;
+           
+            // converting student answers from string to char array
+            string[] studentAnswers = studentEx.Answers.Split(',');
+
+
+          
+            //checking the student answer with model answer
+            for(int i = 0;i < generalExam.Questions.Count; i++)
+            {
+                if (generalExam.Questions[i].Answer == studentAnswers[i][0])
+                {
+                    numberOfCorrectAnswers += 1;
+                }
+            }
+            studentEx.Grade = ((double)numberOfCorrectAnswers / generalExam.Questions.Count) * 100;
+
+            Helpers.Hold();
+        }
+
 
         public override string ToString()
         {
             return $"Student ID: {Id}\nStudent Name: {FirstName + " " + LastName}\nDepartment Name: {Department.Name}";
         }
+
+
 
         public override void PresentMenu()
         {
