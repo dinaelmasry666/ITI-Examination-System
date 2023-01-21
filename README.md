@@ -32,9 +32,20 @@
 
 ## Use Case Diagram:
 
-![useCaseDiagram](https://user-images.githubusercontent.com/76956637/213494849-b2a12087-7f73-47cf-b65f-8cbe92cbd59f.png)
+![use case drawio](https://user-images.githubusercontent.com/76956637/213885044-e01b00f3-40c2-421f-bb77-59df0b098b32.png)
 
-## Object Diagram
-![7](https://user-images.githubusercontent.com/54340387/213723862-f3951ee0-607e-4e36-a305-7f7e2ef8f9a5.jpg)
 
+## Object Diagram:
+
+![Object-Diagram](https://user-images.githubusercontent.com/76956637/213887366-437dab0c-fe48-49cc-b0e3-688d3e2ea062.jpg)
+
+
+## Class Diagram:
+
+![class-class diagram drawio](https://user-images.githubusercontent.com/76956637/213888254-6eb87b57-03d4-412d-ab4a-3a4dbc7b9588.png)
+
+
+## Activity Diagram:
+
+![activity drawio](https://user-images.githubusercontent.com/76956637/213888139-5454bfd5-83b5-4fbf-be0c-d3032e43e0d6.png)
 
