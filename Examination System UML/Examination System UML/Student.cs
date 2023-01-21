@@ -34,9 +34,12 @@ namespace Examination_System_UML
             {
                 Console.WriteLine(Exams[i]);
             }
-
-            Console.WriteLine("choose the targeted exam ID...");
-            int examId = int.Parse(Console.ReadLine());
+	    
+		int examId;
+            do
+            {
+                Console.WriteLine("choose the targeted exam ID...");
+            } while (!int.TryParse(Console.ReadLine(), out examId));
 
             StudentExam ex = Exams.Where((e) => e.Exam.Id == examId).FirstOrDefault();
             if (ex == null)
