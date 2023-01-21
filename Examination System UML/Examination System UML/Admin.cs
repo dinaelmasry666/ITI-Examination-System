@@ -1397,15 +1397,17 @@ namespace Examination_System_UML
 
         private void ReportMenu()
         {
-            Console.WriteLine(
-                "1- GenerateReportInstructorCourses\n" +
-                "2- GenerateReportCourseInstructors\n" +
-                "3- GenerateReportStudentCourses\n" +
-                "4- GenerateReportCourseStudents\n" +
-                "5- GenerateReportCourseTopics\n" +
-                "6- GenerateReportStudentExamsGrades\n");
-
-            int choice = Convert.ToInt32(Console.ReadLine());
+            int choice;
+            do
+            {
+                Console.WriteLine(
+                                "1- GenerateReportInstructorCourses\n" +
+                                "2- GenerateReportCourseInstructors\n" +
+                                "3- GenerateReportStudentCourses\n" +
+                                "4- GenerateReportCourseStudents\n" +
+                                "5- GenerateReportCourseTopics\n" +
+                                "6- GenerateReportStudentExamsGrades\n");
+            } while (!int.TryParse(Console.ReadLine(),out choice));
 
             switch (choice)
             {
