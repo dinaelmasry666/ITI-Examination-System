@@ -22,6 +22,7 @@ namespace Examination_System_UML
             {
                 exam+= $"{i}- {question}";
                 exam += "\n\n";
+                i++;
             }
 
             return exam;

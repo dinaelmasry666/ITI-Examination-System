@@ -23,19 +23,27 @@ namespace Examination_System_UML
 
         private void TakeExam()
         {
-            if(Exams.Count == 0)
+            if (Exams.Count == 0)
             {
                 Console.WriteLine("No available exams.");
                 Helpers.Hold();
                 return;
             }
 
+            if (Exams.Where((e) => e.Taken == false).Count() == 0)
+            {
+                Console.WriteLine("There is no assigned exams.");
+                Helpers.Hold();
+                return;
+            }
+
             for (int i = 0; i < Exams.Count; i++)
             {
-                Console.WriteLine(Exams[i]);
+                if (!Exams[i].Taken)
+                    Console.WriteLine(Exams[i]);
             }
-	    
-		int examId;
+
+            int examId;
             do
             {
                 Console.WriteLine("choose the targeted exam ID...");
@@ -48,10 +56,12 @@ namespace Examination_System_UML
                 return;
             }
             Console.Clear();
-            Console.WriteLine(ex.Exam);
+            //Console.WriteLine(ex.Exam);
 
+            ex.Taken = true;
             for (int i = 0; i < ex.Exam.Questions.Count; i++)
             {
+                Console.WriteLine($"\n{i+1}- {ex.Exam.Questions[i]}");
                 ex.Answers += $"{Console.ReadLine()}";
                 if (i != ex.Exam.Questions.Count - 1)
                     ex.Answers += ",";
@@ -71,9 +81,16 @@ namespace Examination_System_UML
                 return;
             }
 
+            if (Exams.Where((e) => e.Taken == true).Count() == 0)
+            {
+                Console.WriteLine("There is no taken exams.");
+                Helpers.Hold();
+                return;
+            }
+
             for (int i = 0; i<Exams.Count; i++)
-			{  
-                Console.WriteLine( $"{Exams[i].Exam.CourseId}\t{Exams[i].Grade}%");
+			{
+                Console.WriteLine(Exams[i]);
             }
             Helpers.Hold();
         }
@@ -95,20 +112,15 @@ namespace Examination_System_UML
                 return;
             }
 
-            for (int i = 0; i < Exams.Count; i++)
-            { 
-                if(Exams[i].Exam.CourseId== courseId)
-                {
-                    Console.WriteLine($"{Exams[i].Exam.CourseId}\t{Exams[i].Grade}");
-                    Helpers.Hold();
-                    return;
-                }
-            }
-
-            Console.WriteLine("No exams for this course");
+            var tmp = Exams.Where((e) => e.Taken == true && e.Exam.CourseId == courseId).ToList();
+            if (tmp.Count() == 0)
+                Console.WriteLine("There is no taken exams for this course.");
+            else
+                tmp.PrintList();
+            
             Helpers.Hold();
+            return;
         }
-
 
         private void CorrectExam(StudentExam studentEx)
         {
@@ -129,34 +141,29 @@ namespace Examination_System_UML
                 }
             }
             studentEx.Grade = ((double)numberOfCorrectAnswers / generalExam.Questions.Count) * 100;
-
-            Helpers.Hold();
         }
-
 
         public override string ToString()
         {
             return $"Student ID: {Id}\nStudent Name: {FirstName + " " + LastName}\nDepartment Name: {Department.Name}";
         }
 
-
-
         public override void PresentMenu()
         {
-            string welcome = "******************************************************************************\n" +
-                            $"****Welcome {FirstName + " " + LastName} to ITI Examination System\n" +
-                             "******************************************************************************\n\n";
-
-            Console.WriteLine(welcome + "\nPlease choose an option:");
-            Console.WriteLine(
-                "1- Take exam\n" +
-                "2- Get all exams grades\n" +
-                "3- Get exam grade\n" +
-                "4- ESC to logout");
-
-
             while (true)
             {
+                Console.Clear();
+                string welcome = "******************************************************************************\n" +
+                                $"****Welcome {FirstName + " " + LastName} to ITI Examination System\n" +
+                                 "******************************************************************************\n\n";
+
+                Console.WriteLine(welcome + "\nPlease choose an option:");
+                Console.WriteLine(
+                    "1- Take exam\n" +
+                    "2- Get all exams grades\n" +
+                    "3- Get exam grade\n" +
+                    "4- ESC to logout");
+
                 var choice = Console.ReadKey();
                 switch (choice.Key)
                 {

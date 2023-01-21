@@ -16,9 +16,11 @@ namespace Examination_System_UML
         
         public double Grade { get; set; }
 
+        public bool Taken { get; set; }
+
         public override string ToString()
         {
-            return $"Exam ID: {Exam.Id}\nExam Date: {Date}\nGrade:{Grade}";
+            return $"Exam ID: {Exam.Id}\nExam Date: {Date}\nGrade:{Grade}%";
         }
     }
 }

@@ -23,13 +23,24 @@ namespace Examination_System_UML
         /// <exception cref="NotImplementedException"></exception>
         private void GenerateExam()
         {
-            Console.WriteLine("Enter course ID:");
-            int courseId = Convert.ToInt32(Console.ReadLine());
+            int courseId;
+            do
+            {
+                Console.Write("Enter course ID: ");
+            } while (!int.TryParse(Console.ReadLine(), out courseId));
+
             Course course = Program.Courses.Where((c) => c.Id == courseId).FirstOrDefault();
             
             if(course == null)
             {
                 Console.WriteLine("No course with the given ID");
+                Helpers.Hold();
+                return;
+            }
+
+            if (!Courses.Contains(course))
+            {
+                Console.WriteLine("You aren't assigned to this course");
                 Helpers.Hold();
                 return;
             }
@@ -53,8 +64,32 @@ namespace Examination_System_UML
         /// <exception cref="NotImplementedException"></exception>
         private void AssignExamForSingleStudent()
         {
-            Console.WriteLine("Enter student ID:");
-            int stuid = Convert.ToInt32(Console.ReadLine());
+            #region Course
+
+            int courseId;
+            do
+            {
+                Console.Write("Enter course ID: ");
+            } while (!int.TryParse(Console.ReadLine(), out courseId));
+
+            Course crs = Program.Courses.Where((c) => c.Id == courseId).FirstOrDefault();
+
+            if (!Courses.Contains(crs))
+            {
+                Console.WriteLine("You aren't assigned to this course!");
+                Helpers.Hold();
+                return;
+            }
+
+            #endregion
+
+            #region Student
+            int stuid;
+            do
+            {
+                Console.Write("Enter student ID: ");
+            } while (!int.TryParse(Console.ReadLine(), out stuid));
+
             Student stu = Program.Students.Where((s) => s.Id == stuid).FirstOrDefault();
 
             if (stu == null)
@@ -64,19 +99,26 @@ namespace Examination_System_UML
                 return;
             }
 
-            //choose one Exam randomly for student
+            if (!stu.Courses.Contains(crs))
+            {
+                Console.WriteLine("Student isn't assigned to this course!");
+                Helpers.Hold();
+                return;
+            }
+
+            #endregion
+            
             Random rnd = new Random();
-            Exam ex = Program.Exams.OrderBy(x => rnd.Next()).FirstOrDefault();
+            Exam ex = Program.Exams.Where((e)=>e.CourseId == courseId).OrderBy(x => rnd.Next()).FirstOrDefault();
 
             if (ex != null)
             {
-                stu.Exams.Add(new StudentExam { Exam = ex  , Date = new DateOnly()}) ;
+                stu.Exams.Add(new StudentExam { Exam = ex  , Date = DateOnly.FromDateTime(DateTime.Now)}) ;
                 Console.WriteLine($"Exam {ex.Id} was assigned to the student.");
                 Helpers.Hold();
             }
             else
             {
-            
                 Console.WriteLine("No Exams generated...");
                 Helpers.Hold();
             }
@@ -84,13 +126,23 @@ namespace Examination_System_UML
             return; 
         }
 
-        //depending on course ID
         private void AssignExamForGroupStudent()
         {
-            Console.WriteLine("Enter course ID");
-            int courseId = Convert.ToInt32(Console.ReadLine());
+            int courseId;
+
+            do
+            {
+                Console.Write("Enter course ID: ");
+            } while (!int.TryParse(Console.ReadLine(), out courseId));
+
             Course crs = Program.Courses.Where((c) => c.Id == courseId).FirstOrDefault();
 
+            if (!Courses.Contains(crs))
+            {
+                Console.WriteLine("You aren't assigned to this course!");
+                Helpers.Hold();
+                return;
+            }
 
             if (crs == null)
             {
@@ -99,9 +151,7 @@ namespace Examination_System_UML
                 return;
             }
 
-            var studentGroup = Program.Students.Where(
-                    (s) =>  s.Courses.Any((c)=> c.Id == courseId )
-                ).ToList();
+            var studentGroup = Program.Students.Where((s) =>  s.Courses.Any((c)=> c.Id == courseId )).ToList();
 
             if (studentGroup == null)
             {
@@ -117,7 +167,7 @@ namespace Examination_System_UML
             {
                 for(int i = 0;i< studentGroup.Count;i++)
                 {
-                    studentGroup[i].Exams.Add(new StudentExam { Exam = ex });
+                    studentGroup[i].Exams.Add(new StudentExam { Exam = ex, Date = DateOnly.FromDateTime(DateTime.Now) });
                 }
                 Console.WriteLine($"Exam with id {ex.Id} was assigned");
             }
@@ -135,7 +185,6 @@ namespace Examination_System_UML
             return $"Instructor ID: {Id}\nInstructor Name: {FirstName + " " + LastName}\nDepartment Name: {Department.Name}";
         }
 
-
         public override void PresentMenu()
         {
             while (true)
@@ -148,8 +197,9 @@ namespace Examination_System_UML
                 Console.WriteLine(welcome + "\nPlease choose an option:");
                 Console.WriteLine(
                     "1- Generate an exam\n" +
-                    "2- Assign exam\n" +
-                    "3- ESC to logout");
+                    "2- Assign exam to a single student\n" +
+                    "3- Assign exam to a group of student\n" +
+                    "4- ESC to logout");
 
 
                 var choice = Console.ReadKey();

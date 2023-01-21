@@ -1093,9 +1093,7 @@ namespace Examination_System_UML
 
             Helpers.Hold();
         }
-        #endregion
-
-        
+        #endregion        
 
         #region Assign
         //Promote an instructor to be admin
@@ -1293,7 +1291,7 @@ namespace Examination_System_UML
         #endregion
 
 
-        public override void PresentMenu()
+        public void PresentAdminMenu()
         {
             while (true)
             {
@@ -1307,7 +1305,8 @@ namespace Examination_System_UML
                     "1- Create, Update, or Delete a user\n" +
                     "2- Grant or Revoke authorization\n" +
                     "3- Generate a Report\n" +
-                    "4- ESC to logout");
+                    "4- Instructor menu\n" +
+                    "5- ESC to logout");
 
 
                 var choice = Console.ReadKey();
@@ -1320,6 +1319,8 @@ namespace Examination_System_UML
                     case ConsoleKey.NumPad2: { AssignMenu(); break; }
                     case ConsoleKey.D3:
                     case ConsoleKey.NumPad3: { ReportMenu(); break; }
+                    case ConsoleKey.D4:
+                    case ConsoleKey.NumPad4: { PresentMenu(); break; }
                     case ConsoleKey.Escape: { Program.CurrentUser = null; Program.Type = ""; return; }
                 }
             }

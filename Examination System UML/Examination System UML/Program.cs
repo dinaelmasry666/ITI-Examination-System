@@ -60,7 +60,7 @@ public class Program
     };
 
     static public List<Student> Students = new List<Student> {
-
+        new Student{Id=0    ,FirstName = "Hagar"     ,LastName = "Mostafa"     ,Department = Departments[1]           ,Username = "a"                      ,Password = "123"                   , Courses = new List<Course>(){Courses[3], Courses[0]}, Exams = new List<StudentExam>()},
         new Student{Id=1    ,FirstName = "Hagar"     ,LastName = "Mostafa"     ,Department = Departments[1]           ,Username = "Hagar_Mostafa1"         ,Password = "Mostafa_Hagar1"        , Courses = new List<Course>(), Exams = new List<StudentExam>()},
         new Student{Id=2    ,FirstName = "Sara"      ,LastName = "Mohamed"     ,Department = Departments[2]           ,Username = "Sara_Mohamed2"          ,Password = "Mohamed_Sara2"         , Courses = new List<Course>(), Exams = new List<StudentExam>()},
         new Student{Id=3    ,FirstName = "Eman"      ,LastName = "Mohammed"    ,Department = Departments[3]           ,Username = "Eman_Mohammed3"         ,Password = "Mohammed_Eman3"        , Courses = new List<Course>(), Exams = new List<StudentExam>()},
@@ -107,8 +107,12 @@ public class Program
         {
             Authenticate();
             Console.Clear();
-            if(CurrentUser != null)
-                CurrentUser.PresentMenu();
+            if (CurrentUser != null) {
+                if (Type == "Admin")
+                    ((Admin)CurrentUser).PresentAdminMenu();
+                else
+                    CurrentUser.PresentMenu();
+            }
         }
     }
 
