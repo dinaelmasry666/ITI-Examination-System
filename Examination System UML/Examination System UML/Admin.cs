@@ -1095,7 +1095,10 @@ namespace Examination_System_UML
         }
         #endregion
 
+        
+
         #region Assign
+        //Promote an instructor to be admin
         public void AssignAdmin()
         {
             int instructorId;
@@ -1111,10 +1114,13 @@ namespace Examination_System_UML
                 Program.Instructors.Add(instructor);
             }
             else
+            {
                 Console.WriteLine("ID doesn't exist");
-
+            }
+                
         }
 
+        //add a course to the instructor courses
         public void AssignInstrucor()
         {
             int instructorId;
@@ -1133,13 +1139,16 @@ namespace Examination_System_UML
             Course course = Program.Courses.Where((c) => c.Id == courseId).SingleOrDefault();
 
             if (instructor != null && course != null)
+            {
                 instructor.Courses.Add(course);
+            }
             else if (course != null)
                 Console.WriteLine("Instructor ID doesn't exist");
             else
                 Console.WriteLine("Course ID doesn't exist");
         }
 
+        //add a course to the student courses
         public void AssignStudent()
         {
             int studentId;
@@ -1318,30 +1327,34 @@ namespace Examination_System_UML
 
         private void CUDMenu()
         {
+            Console.WriteLine(
+                "1- Add Student                                 2- Add Department\n" +
+                "3- Add Question                                4- Add Instructor\n" +
+                "5- Add Course                                  6- Add Topic\n" +
+                "7- Update Student                              8- Update Department\n" +
+                "9- Update Question                             10- Update Instructor\n" +
+                "11- Update Course                              12- Update Topic\n" +
+                "13- Delete Student                             14- Delete Department\n" +
+                "15- Delete Question                            16- Delete Instructor\n" +
+                "17- Delete Course                              18- Delete Topic\n" +
+                "19- Assign Admin                               21- Assign Instrucor\n" +
+                "22- Assign Student                             23- Generate ReportInstructorCourses\n" +
+                "24- Generate ReportCourseInstructors           25- Generate ReportStudentCourses\n" +
+                "26- Generate ReportCourseStudents              27- Generate ReportCourseTopics\n" +
+                "28- GenerateReportStudentExamsGrades           29- Display Students\n" +
+                "30- Display Departments                        31- Display Instructors\n" +
+                "32- Display Courses                            33- Display Topics\n");
+            
             int choice;
             do
             {
-                Console.WriteLine(
-                            "1- Add Student                                 2- Add Department\n" +
-                            "3- Add Question                                4- Add Instructor\n" +
-                            "5- Add Course                                  6- Add Topic\n" +
-                            "7- Update Student                              8- Update Department\n" +
-                            "9- Update Question                             10- Update Instructor\n" +
-                            "11- Update Course                              12- Update Topic\n" +
-                            "13- Delete Student                             14- Delete Department\n" +
-                            "15- Delete Question                            16- Delete Instructor\n" +
-                            "17- Delete Course                              18- Delete Topic\n" +
-                            "19- Assign Admin                               21- Assign Instrucor\n" +
-                            "22- Assign Student                             23- Generate ReportInstructorCourses\n" +
-                            "24- Generate ReportCourseInstructors           25- Generate ReportStudentCourses\n" +
-                            "26- Generate ReportCourseStudents              27- Generate ReportCourseTopics\n" +
-                            "28- GenerateReportStudentExamsGrades           29- Display Students\n" +
-                            "30- Display Departments                        31- Display Instructors\n" +
-                            "32- Display Courses                            33- Display Topics\n");
-
+            
+                Console.WriteLine("Invalid Choice");   
+                
             } while (!int.TryParse(Console.ReadLine(), out choice));
 
             Console.Clear();
+            
             switch (choice)
             {
                 case 1: AddStudent(); break;
