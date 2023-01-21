@@ -70,7 +70,7 @@ namespace Examination_System_UML
 
             if (ex != null)
             {
-                stu.Exams.Add(new StudentExam { Exam = ex  }) ;
+                stu.Exams.Add(new StudentExam { Exam = ex  , Date = new DateOnly()}) ;
                 Console.WriteLine($"Exam {ex.Id} was assigned to the student.");
                 Helpers.Hold();
             }
@@ -138,24 +138,25 @@ namespace Examination_System_UML
 
         public override void PresentMenu()
         {
-            string welcome = "******************************************************************************\n" +
-                            $"****Welcome {FirstName + " " + LastName} to ITI Examination System\n" +
-                             "******************************************************************************\n\n";
-
-            Console.WriteLine(welcome + "\nPlease choose an option:");
-            Console.WriteLine(
-                "1- Generate an exam\n" +
-                "2- Assign exam\n" +
-                "3- ESC to logout");
-
-
             while (true)
             {
+                Console.Clear();
+                string welcome = "******************************************************************************\n" +
+                                $"****Welcome {FirstName + " " + LastName} to ITI Examination System\n" +
+                                 "******************************************************************************\n\n";
+
+                Console.WriteLine(welcome + "\nPlease choose an option:");
+                Console.WriteLine(
+                    "1- Generate an exam\n" +
+                    "2- Assign exam\n" +
+                    "3- ESC to logout");
+
+
                 var choice = Console.ReadKey();
                 switch (choice.Key)
                 {
                     case ConsoleKey.D1:
-                    case ConsoleKey.NumPad1: { Console.Clear(); GenerateExam(); break; }
+                    case ConsoleKey.NumPad1: { Console.Clear();  GenerateExam(); break; }
                     case ConsoleKey.D2:
                     case ConsoleKey.NumPad2: { Console.Clear(); AssignExamForSingleStudent(); break; }
                     case ConsoleKey.D3:

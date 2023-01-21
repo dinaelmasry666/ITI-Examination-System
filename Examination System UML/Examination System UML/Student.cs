@@ -23,28 +23,35 @@ namespace Examination_System_UML
 
         private void TakeExam()
         {
+            if(Exams.Count == 0)
+            {
+                Console.WriteLine("No available exams.");
+                Helpers.Hold();
+                return;
+            }
+
+            for (int i = 0; i < Exams.Count; i++)
+            {
+                Console.WriteLine(Exams[i]);
+            }
+
             Console.WriteLine("choose the targeted exam ID...");
+            int examId = int.Parse(Console.ReadLine());
 
-            for(int i = 0;i < Exams.Count; i++)
-               {
-                Console.WriteLine(Exams[i]); 
-               }
-            int examId=int.Parse(Console.ReadLine());
-
-           
             StudentExam ex = Exams.Where((e) => e.Exam.Id == examId).FirstOrDefault();
-            if(ex == null)
+            if (ex == null)
             {
                 Console.WriteLine("No Exam with the given ID");
                 return;
             }
+            Console.Clear();
             Console.WriteLine(ex.Exam);
 
             for (int i = 0; i < ex.Exam.Questions.Count; i++)
-            { 
-              ex.Answers += $"{Console.ReadLine()}";
-              if (i != ex.Exam.Questions.Count- 1)
-                ex.Answers += ",";
+            {
+                ex.Answers += $"{Console.ReadLine()}";
+                if (i != ex.Exam.Questions.Count - 1)
+                    ex.Answers += ",";
             }
 
             CorrectExam(ex);
@@ -54,6 +61,13 @@ namespace Examination_System_UML
 
         private void GetGrades()
         {
+            if (Exams.Count == 0)
+            {
+                Console.WriteLine("No available exams.");
+                Helpers.Hold();
+                return;
+            }
+
             for (int i = 0; i<Exams.Count; i++)
 			{  
                 Console.WriteLine( $"{Exams[i].Exam.CourseId}\t{Exams[i].Grade}%");

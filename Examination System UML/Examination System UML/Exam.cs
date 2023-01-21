@@ -17,10 +17,10 @@ namespace Examination_System_UML
         public override string ToString()
         {
             string exam = "";
-
+            int i = 1;
             foreach (var question in Questions)
             {
-                exam+= question.ToString();
+                exam+= $"{i}- {question}";
                 exam += "\n\n";
             }
 

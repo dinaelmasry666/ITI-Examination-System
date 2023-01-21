@@ -23,7 +23,7 @@ namespace Examination_System_UML
 
         public override string ToString()
         {
-            string s = $"{Id}- {Statement}\n";
+            string s = $"{Statement}\n";
             char c = 'a';
 
             foreach (var item in Choices)
