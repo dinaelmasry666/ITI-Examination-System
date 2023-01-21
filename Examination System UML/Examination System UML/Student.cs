@@ -77,8 +77,13 @@ namespace Examination_System_UML
 
         private void GetGrade()
         {
-            Console.WriteLine("Enter course ID:");
-            int courseId = int.Parse(Console.ReadLine());
+            int courseId;
+
+            do
+            {
+                Console.WriteLine("Enter course ID:");
+            } while (!int.TryParse(Console.ReadLine(), out courseId));
+	    
             Course crs = Program.Courses.Where((c) => c.Id == courseId).FirstOrDefault();
 
             if (crs == null)
