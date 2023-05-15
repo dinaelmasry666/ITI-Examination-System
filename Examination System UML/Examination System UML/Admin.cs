@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace Examination_System_UML
 {
-    // call Helpers.Hold(); at the end of every function to hold the state
+    // call Helpers.Hold(); 
+    // at the end of every function to hold the state
     public class Admin : Instructor
     {
         #region CRUD operations
